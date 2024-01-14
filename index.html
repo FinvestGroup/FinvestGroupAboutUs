@@ -19,22 +19,17 @@
 
     <script>
         function loadSubpage(subpage) {
-            // Fetch HTML content from GitHub
-            fetch(`https://github.com/FinvestGroup/FinvestGroupAboutUs/blob/main/Subpage1.html`)
+            // Fetch plain text content from GitHub
+            fetch(`https://github.com/FinvestGroup/FinvestGroupAboutUs/blob/main/Subpage1.txt`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`Failed to load HTML content for ${subpage}`);
+                        throw new Error(`Failed to load content for ${subpage}`);
                     }
-                    return response.text();  // Use text() to get the actual HTML content
+                    return response.text();  // Use text() to get the plain text content
                 })
-                .then(htmlContent => {
-                    // Parse the HTML content from the GitHub response
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(htmlContent, 'text/html');
-                    const extractedContent = doc.body.innerHTML;
-
+                .then(plainTextContent => {
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerHTML = extractedContent;
+                    document.getElementById('contentContainer').innerHTML = plainTextContent;
                 })
                 .catch(error => console.error(error));
         }
