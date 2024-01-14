@@ -23,21 +23,28 @@
             fetch(`https://github.com/FinvestGroup/FinvestGroupAboutUs/blob/main/Subpage1.txt`)
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`Failed to load content for ${subpage}`);
+                        throw new Error(`Failed to load HTML content for ${subpage}`);
                     }
-                    return response.text();  // Use text() to get the plain text content
+                    return response.text();
                 })
-                .then(plainTextContent => {
-                    // Use a regular expression to match the content inside square brackets [] after "rawLines":
-                    const match = plainTextContent.match(/"rawLines":\s*\["([\s\S]*?)"\]/);
+                .then(htmlContent => {
+                    // Extract the head section content
+                    const headMatch = htmlContent.match(/<head>([\s\S]*?)<\/head>/i);
+                    const headContent = headMatch ? headMatch[1] : '';
+
+                    // Replace the content of the 'headContainer' div with the extracted head section
+                    document.getElementById('headContainer').innerHTML = headContent;
+
+                    // Extract the rawLines content
+                    const rawLinesMatch = htmlContent.match(/"rawLines":\s*\["([\s\S]*?)"\]/);
 
                     // Remove all double quotes (") and commas (,) from the extracted text
-                    const extractedText = match ? match[1].replace(/["']/g, "").replace(/,/g, "") : 'No content found';
+                    const extractedText = rawLinesMatch ? rawLinesMatch[1].replace(/["']/g, "").replace(/,/g, "") : 'No content found';
 
-                    // Replace the content of the 'contentContainer' div
+                    // Replace the content of the 'contentContainer' div with the extracted text
                     document.getElementById('contentContainer').innerHTML = extractedText;
                 })
-                .catch(error => console.error(error));
+                .catch(error => console.error(error));          
         }
     </script>
 
