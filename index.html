@@ -29,10 +29,10 @@
                 })
                 .then(plainTextContent => {
                     // Use a regular expression to match the content inside square brackets [] after "rawLines":
-                    const match = plainTextContent.match(/"rawLines":\s*\[([\s\S]*?)\]/);
+                    const match = plainTextContent.match(/"rawLines":\s*\["([\s\S]*?)"\]/);
 
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerText = match ? match[1] : 'No content found';
+                    document.getElementById('contentContainer').innerHTML = match ? match[1] : 'No content found';
                 })
                 .catch(error => console.error(error));
         }
