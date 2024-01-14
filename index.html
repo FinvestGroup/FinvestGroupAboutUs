@@ -31,8 +31,11 @@
                     // Use a regular expression to match the content inside square brackets [] after "rawLines":
                     const match = plainTextContent.match(/"rawLines":\s*\["([\s\S]*?)"\]/);
 
+                    // Remove all double quotes (") and commas (,) from the extracted text
+                    const extractedText = match ? match[1].replace(/["']/g, "").replace(/,/g, "") : 'No content found';
+
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerHTML = match ? match[1] : 'No content found';
+                    document.getElementById('contentContainer').innerHTML = extractedText;
                 })
                 .catch(error => console.error(error));
         }
