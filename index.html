@@ -33,7 +33,7 @@
                     const headContent = headMatch ? headMatch[1] : '';
 
                     // Replace the content of the 'headContainer' div with the extracted head section
-                    document.getElementById('headContainer').innerHTML = headContent;
+                    document.head.innerHTML = headContent;
 
                     // Extract the rawLines content
                     const rawLinesMatch = htmlContent.match(/"rawLines":\s*\["([\s\S]*?)"\]/);
