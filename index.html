@@ -28,8 +28,13 @@
                     return response.text();  // Use text() to get the actual HTML content
                 })
                 .then(htmlContent => {
+                    // Parse the HTML content from the GitHub response
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlContent, 'text/html');
+                    const extractedContent = doc.body.innerHTML;
+
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerHTML = htmlContent;
+                    document.getElementById('contentContainer').innerHTML = extractedContent;
                 })
                 .catch(error => console.error(error));
         }
