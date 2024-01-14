@@ -21,9 +21,6 @@
         function loadSubpage(subpage) {
             // Fetch plain text content from GitHub
             fetch(`https://github.com/FinvestGroup/FinvestGroupAboutUs/blob/main/Subpage1.txt`)
-                function loadSubpage(subpage) {
-            // Fetch plain text content from GitHub
-            fetch(`https://raw.githubusercontent.com/FinvestGroup/FinvestGroupAboutUs/main/${subpage}.txt`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Failed to load content for ${subpage}`);
@@ -37,9 +34,6 @@
                     // Replace the content of the 'contentContainer' div
                     document.getElementById('contentContainer').innerText = match ? match[0] : 'No content found';
                 })
-                .catch(error => console.error(error));          
+                .catch(error => console.error(error));
         }
     </script>
-
-</body>
-</html>
