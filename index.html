@@ -28,10 +28,13 @@
                     return response.text();  // Use text() to get the plain text content
                 })
                 .then(plainTextContent => {
+                    // Use a regular expression to extract only the content
+                    const content = plainTextContent.replace(/.*?(\n|$)/, '');  // Replace everything until the first newline or end of string
+
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerHTML = plainTextContent;
+                    document.getElementById('contentContainer').innerText = content;
                 })
-                .catch(error => console.error(error));
+                .catch(error => console.error(error));          
         }
     </script>
 
