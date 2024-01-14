@@ -28,11 +28,13 @@
                     return response.text();  // Use text() to get the plain text content
                 })
                 .then(plainTextContent => {
-                    // Use a regular expression to extract only the content
-                    const match = plainTextContent.match(/Subpage[\s\S]*/);
+                    // Use the DOMParser to create a document and extract text content
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(plainTextContent, 'text/html');
+                    const content = doc.body.textContent.trim();
 
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerText = match ? match[0] : 'No content found';
+                    document.getElementById('contentContainer').innerText = content;
                 })
                 .catch(error => console.error(error));          
         }
