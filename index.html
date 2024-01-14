@@ -21,6 +21,9 @@
         function loadSubpage(subpage) {
             // Fetch plain text content from GitHub
             fetch(`https://github.com/FinvestGroup/FinvestGroupAboutUs/blob/main/Subpage1.txt`)
+                function loadSubpage(subpage) {
+            // Fetch plain text content from GitHub
+            fetch(`https://raw.githubusercontent.com/FinvestGroup/FinvestGroupAboutUs/main/${subpage}.txt`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Failed to load content for ${subpage}`);
@@ -28,13 +31,11 @@
                     return response.text();  // Use text() to get the plain text content
                 })
                 .then(plainTextContent => {
-                    // Use the DOMParser to create a document and extract text content
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(plainTextContent, 'text/html');
-                    const content = doc.body.textContent.trim();
+                    // Use a regular expression to match {"rawLines":[...]}
+                    const match = plainTextContent.match(/{"rawLines":\[[\s\S]*?\]}/);
 
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerText = content;
+                    document.getElementById('contentContainer').innerText = match ? match[0] : 'No content found';
                 })
                 .catch(error => console.error(error));          
         }
