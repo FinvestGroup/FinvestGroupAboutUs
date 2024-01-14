@@ -29,10 +29,10 @@
                 })
                 .then(plainTextContent => {
                     // Use a regular expression to extract only the content
-                    const content = plainTextContent.replace(/.*?(\n|$)/, '');  // Replace everything until the first newline or end of string
+                    const match = plainTextContent.match(/Subpage[\s\S]*/);
 
                     // Replace the content of the 'contentContainer' div
-                    document.getElementById('contentContainer').innerText = content;
+                    document.getElementById('contentContainer').innerText = match ? match[0] : 'No content found';
                 })
                 .catch(error => console.error(error));          
         }
